@@ -1,0 +1,37 @@
+<mat-toolbar color="primary" class="app-container">
+  <mat-toolbar-row>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngFor="let item of menuList" (click)="onSelectMenu(item)"> <mat-icon>{{item.iconClass}}</mat-icon> {{ item.name }}</button>
+
+    </mat-menu>
+    <span id="id-page-title">{{title}}</span>
+
+    <span class="toolbar-fill-remaining-space"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="menuRight">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <div>
+      <span>{{userInfo.userName}}</span>
+    </div>
+    <mat-menu #menuRight="matMenu" yPosition="below">
+      <button mat-menu-item>
+        <mat-icon>mood</mat-icon>
+        <span>{{userInfo.fullName}}</span>
+      </button>
+
+      <button mat-menu-item>
+        <mat-icon>account_circle</mat-icon>
+        <span>{{userInfo.fullName}}</span>
+      </button>
+
+      <button mat-menu-item (click)="onLogout()">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Salir</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
