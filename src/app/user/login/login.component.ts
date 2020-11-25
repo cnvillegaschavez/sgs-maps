@@ -12,7 +12,7 @@ import { FirebaseService } from 'src/app/core/services/firebase.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public fb: FormBuilder, public router: Router, private firebaseSErvice: FirebaseService) {
+  constructor(public fb: FormBuilder, public router: Router, private firebaseService: FirebaseService) {
 
   }
 
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+    this.firebaseService.getInitData();
   }
 
   public onLogin(): void {
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
 
     navigator.geolocation.getCurrentPosition(x => {
       const userData = { userName: userInfoValue.userName, location: { latitude: x.coords.latitude, longitude: x.coords.longitude } };
-      this.firebaseSErvice.addUser(userData);
+      this.firebaseService.addUser(userData);
     });
 
     setTimeout(() => {

@@ -9,6 +9,19 @@ export class FirebaseService {
   constructor(private firestore: AngularFireDatabase){
   }
 
+  public getInitData(): void {
+    const listRef = this.firestore.list('items');
+    const userArray = new Array();
+    listRef.snapshotChanges().subscribe(r => {
+      if (r.length > 0){
+        r.forEach(item => {
+          userArray.push(item.payload.val());
+        });
+        sessionStorage.setItem(CommonConstants.users, JSON.stringify(userArray));
+      }
+    });
+  }
+
   public addUser(data: IUserInfo): void {
     const itemRef = this.firestore.object('items');
     const listRef = this.firestore.list('items');
