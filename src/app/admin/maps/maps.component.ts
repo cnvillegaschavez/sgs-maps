@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { FirebaseService } from 'src/app/core/services/firebase.service';
 
 @Component({
   selector: 'app-maps',
@@ -14,31 +15,48 @@ export class MapsComponent implements OnInit {
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow | undefined;
 
   zoom = 18;
-  center: google.maps.LatLngLiteral | undefined;
+  center: google.maps.LatLngLiteral = {  lat: 10, lng: 10 };
   options: google.maps.MapOptions = {
     zoomControl: true,
     scrollwheel: false,
     disableDoubleClickZoom: true,
   };
-  markers = [];
+  markers = [{
+    position: {
+      lat: 0,
+      lng: 0
+    },
+    label: {
+      color: 'blue',
+      text: ''
+    },
+    title: '',
+    info: '',
+    options: {
+      animation: google.maps.Animation.BOUNCE
+    }
+  }];
   infoContent = '';
 
-  items: Observable<any[]>;
-  constructor(db: AngularFireDatabase) {
-    this.items = db.list('items').valueChanges();
+  constructor(private firebaseService: FirebaseService) {
+
   }
 
   ngOnInit(): void {
     navigator.geolocation.getCurrentPosition(x => {
-
       this.center = {
         lat: x.coords.latitude,
         lng: x.coords.longitude
       };
-      //this.itemRef.set({ location: this.center  });
-
-      //this.markers.push();
+      const list = this.firebaseService.getMarkets();
+      this.markers = list;
     });
   }
 
+  openInfo(marker: MapMarker, infoData: any): void {
+    this.infoContent = infoData.info;
+    if (this.info){
+      this.info.open(marker);
+    }
+  }
 }

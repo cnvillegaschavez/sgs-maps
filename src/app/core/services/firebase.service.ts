@@ -9,6 +9,19 @@ export class FirebaseService {
   constructor(private firestore: AngularFireDatabase){
   }
 
+  public getInitData(): void {
+    const listRef = this.firestore.list('items');
+    const userArray = new Array();
+    listRef.snapshotChanges().subscribe(r => {
+      if (r.length > 0){
+        r.forEach(item=> {
+          userArray.push(item.payload.val());
+        });
+        sessionStorage.setItem(CommonConstants.users, JSON.stringify(userArray));
+      }
+    });
+  }
+
   public addUser(data: IUserInfo): void {
     const itemRef = this.firestore.object('items');
     const listRef = this.firestore.list('items');
@@ -28,5 +41,36 @@ export class FirebaseService {
       const list = [data];
       itemRef.set(list);
     }
+  }
+
+  public getMarkets(): [] {
+
+    const userList = sessionStorage.getItem(CommonConstants.users);
+    if (userList) {
+      const userArray = JSON.parse(userList) as IUserInfo[];
+      const markers: any = new Array();
+      userArray.forEach(u => {
+        markers.push({
+          position: {
+            lat: u.location.latitude,
+            lng: u.location.longitude
+          },
+          label: {
+            color: 'blue',
+            text: u.userName
+          },
+          title: u.userName,
+          info: 'User:' + u.userName,
+          options: {
+            animation: google.maps.Animation.BOUNCE
+          }
+        });
+
+      });
+
+      return markers;
+    }
+
+    return [];
   }
 }
