@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { UserService } from './../services';
-import { ValidationMessage } from './../../shared/common';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CommonConstants } from 'src/app/shared/common/constants-common';
+import { FirebaseService } from 'src/app/core/services/firebase.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { ValidationMessage } from './../../shared/common';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public fb: FormBuilder, public router: Router, private userService: UserService) {
+  constructor(public fb: FormBuilder, public router: Router, private firebaseSErvice: FirebaseService) {
 
   }
 
@@ -45,22 +45,16 @@ export class LoginComponent implements OnInit {
     if (this.userForm && !this.userForm.valid) {
       return;
     }
-    const userInfo = {
-      idusuario: 4,
-      idpersona: 8,
-      userName: 'fullName',
-      codestado: 1,
-      personaNombres: 'Usuario Responsable',
-      userRole: {
-         idRol: 1,
-         codigo: '001',
-         nombre: 'Responsable'
-      },
-      hasPermission: true
-   };
     this.loading = true;
+    const userInfoValue = this.userForm?.value;
+
+    navigator.geolocation.getCurrentPosition(x => {
+      const userData = { userName: userInfoValue.userName, location: { latitude: x.coords.latitude, longitude: x.coords.longitude } };
+      this.firebaseSErvice.addUser(userData);
+    });
+
     setTimeout(() => {
-      sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+      sessionStorage.setItem(CommonConstants.userInfo, JSON.stringify({ userName: userInfoValue.userName}));
       this.router.navigate(['admin/maps']);
       this.loading = false;
     }, 2000);

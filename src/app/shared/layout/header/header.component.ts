@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonConstants } from '../../common/constants-common';
 
 @Component({
   selector: 'app-header',
@@ -9,20 +10,23 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   isCollapsed = false;
-  title = 'Pedidos';
+  title = 'Maps';
   userInfo = { userName: '', fullName: ''};
   menuList = [
-    { _url: '/admin/orders', name: 'Pedidos', iconClass: 'shopping_cart' }
+    { _url: '/admin/orders', name: 'Maps', iconClass: 'maps' }
   ];
 
   constructor(private route: Router) { }
 
   ngOnInit(): void {
-   this.userInfo = { userName: '', fullName: ''};
+    const userValue = sessionStorage.getItem(CommonConstants.userInfo);
+    if (userValue) {
+      const userJson = JSON.parse(userValue);
+      this.userInfo = { userName: userJson.userName, fullName: userJson.userName};
+    }
   }
 
   onLogout(): void {
-    sessionStorage.removeItem('userTokenSiscal');
     this.route.navigate(['/login']);
   }
 

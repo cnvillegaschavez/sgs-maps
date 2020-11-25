@@ -1,1 +1,4 @@
-<p>maps works!</p>
+<div>
+    <h1>{{ items | async | json }}</h1>
+    <google-map height="80vh" width="100%" [options]="options"> </google-map>
+</div>

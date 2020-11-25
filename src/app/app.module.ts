@@ -1,6 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreMaterialModule } from './material-module';
 import { LoginComponent } from './user/login/login.component';
@@ -13,6 +11,8 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { UserService } from './user/services';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -30,7 +30,8 @@ import { UserService } from './user/services';
     RouterModule,
     SharedModule,
     CoreModule,
-    CoreMaterialModule
+    CoreMaterialModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

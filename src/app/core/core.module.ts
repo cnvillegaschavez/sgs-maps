@@ -2,6 +2,7 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FirebaseService } from './services/firebase.service';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
     HttpClientModule
   ],
   providers: [
+    FirebaseService,
     AuthService,
     AuthGuard,
     {

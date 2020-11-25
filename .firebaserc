@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "sgs-maps-45e7e": {
+      "hosting": {
+        "sgs-maps": [
+          "sgs-maps-45e7e"
+        ]
+      }
+    }
+  }
+}

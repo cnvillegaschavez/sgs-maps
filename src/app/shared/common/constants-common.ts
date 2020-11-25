@@ -26,3 +26,9 @@ export const SettingMessage = {
   clickToClose: true,
   animate: 'fromRight'
 };
+
+export const CommonConstants = {
+  tokenName: 'sgs-token-name',
+  userInfo: 'sgs-userInfo',
+  users: 'sgs-users'
+};
