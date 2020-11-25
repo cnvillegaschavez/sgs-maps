@@ -15,7 +15,18 @@ export class FirebaseService {
     listRef.valueChanges().subscribe(r => {
       sessionStorage.setItem(CommonConstants.users, JSON.stringify(r));
     });
-    const list = [data];
-    itemRef.set(list);
+
+    const userList = sessionStorage.getItem(CommonConstants.users);
+    if (userList) {
+      const userArray = JSON.parse(userList) as IUserInfo[];
+      const userItem = userArray.find(a => a.userName === data.userName);
+      if (!userItem){
+        userArray.push(data);
+        itemRef.set(userArray);
+      }
+    } else {
+      const list = [data];
+      itemRef.set(list);
+    }
   }
 }
