@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
   buildForm(): void {
 
     this.userForm = this.fb.group({
-      userName: [, [Validators.required, Validators.email, Validators.maxLength(100)]],
+      userName: ['cvillegas@baufest.com', [Validators.required, Validators.email, Validators.maxLength(100)]],
       password: [, [Validators.required, Validators.maxLength(20)]],
     });
     this.userForm.valueChanges

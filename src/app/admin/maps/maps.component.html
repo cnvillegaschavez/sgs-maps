@@ -1,4 +1,15 @@
 <div>
-    <h1>{{ items | async | json }}</h1>
-    <google-map height="80vh" width="100%" [options]="options"> </google-map>
+    <google-map height="80vh" width="100%" [options]="options" [zoom] = "zoom" [center]="center"> 
+        <map-marker
+            #markerItem
+            *ngFor="let marker of markers"
+            [position]="marker.position"
+            [label]="marker.label"
+            [title]="marker.title"
+            [options]="marker.options"
+            (mapClick) = "openInfo(markerItem, marker)"
+            >
+
+        </map-marker>
+    </google-map>
 </div>

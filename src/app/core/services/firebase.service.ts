@@ -42,4 +42,35 @@ export class FirebaseService {
       itemRef.set(list);
     }
   }
+
+  public getMarkets(): [] {
+
+    const userList = sessionStorage.getItem(CommonConstants.users);
+    if (userList) {
+      const userArray = JSON.parse(userList) as IUserInfo[];
+      const markers: any = new Array();
+      userArray.forEach(u => {
+        markers.push({
+          position: {
+            lat: u.location.latitude,
+            lng: u.location.longitude
+          },
+          label: {
+            color: 'blue',
+            text: u.userName
+          },
+          title: u.userName,
+          info: 'User:' + u.userName,
+          options: {
+            animation: google.maps.Animation.BOUNCE
+          }
+        });
+
+      });
+
+      return markers;
+    }
+
+    return [];
+  }
 }
