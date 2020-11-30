@@ -6,18 +6,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserService } from './services';
 import { SharedModule } from './../shared/shared.module';
+import { RegisterComponent } from './register/register.component';
+import { UserRouting } from './user.routing';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [RegisterComponent],
   imports: [
-
     CommonModule,
     MatCardModule,
     MatInputModule,
@@ -27,7 +29,9 @@ import { SharedModule } from './../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDividerModule,
+    UserRouting
   ],
   exports: [],
   providers: [UserService]

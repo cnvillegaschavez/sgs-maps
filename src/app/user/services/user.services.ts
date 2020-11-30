@@ -15,8 +15,12 @@ export class UserService {
 
   public login(user: IUser): Observable<any> {
     const url = environment.serviceUrl + '/api/Token';
+    // tslint:disable-next-line:variable-name
     const _urlParams = 'grant_type=password&userName=' + user.userName + '&password=' + user.password;
     return this.http.post(url, _urlParams, { headers: this.headers });
   }
 
+  public register(user: IUser): Observable<any> {
+    return this.http.post(`/users/register`, user);
+  }
 }
