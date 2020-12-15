@@ -12,10 +12,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserService } from './services';
 import { SharedModule } from './../shared/shared.module';
+import { RegisterComponent } from './register/register.component';
+import { UserRoutingModule } from './user.routing';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [RegisterComponent],
   imports: [
 
     CommonModule,
@@ -27,7 +29,8 @@ import { SharedModule } from './../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    UserRoutingModule
   ],
   exports: [],
   providers: [UserService]

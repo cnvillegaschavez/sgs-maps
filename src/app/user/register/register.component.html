@@ -1,0 +1,52 @@
+<mat-card class="form-register">
+    <mat-card-header>
+        <div mat-card-avatar>
+            <mat-icon aria-hidden="false" >account_circle</mat-icon>
+        </div>
+        <mat-card-title>
+            <h1>Register User</h1> 
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <h2>Register</h2>
+        <form *ngIf='registerForm' [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+               <mat-form-field class="content-max">
+                <mat-label>First Name</mat-label>
+                <input matInput type="text" formControlName="firstName">
+                <mat-error *ngIf="formErrors.firstName">{{ formErrors.firstName }}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="content-max">
+                <mat-label>Last Name</mat-label>
+                <input matInput type="text" formControlName="lastName">
+                <mat-error *ngIf="formErrors.lastName">{{ formErrors.lastName }}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="content-max">
+                <mat-label>User Name</mat-label>
+                <input matInput type="text" formControlName="userName">
+                <mat-error *ngIf="formErrors.userName">{{ formErrors.userName }}</mat-error>
+              </mat-form-field>
+
+
+              <mat-form-field class="content-max">
+                <input type="password" matInput placeholder="Contraseña" formControlName="password" />
+                <mat-error *ngIf="formErrors.password">{{ formErrors.password }}</mat-error>
+              </mat-form-field>
+          
+            <br>
+            <button class="content-max" mat-raised-button color="primary" type="submit">Register</button>
+            {{ registerForm.value | json }}
+            <br>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <a class="content-max" mat-button routerLink="/login">Cancel</a>
+            <br>
+          
+        </form>
+        
+    </mat-card-content>
+</mat-card>
